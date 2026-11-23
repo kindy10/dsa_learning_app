@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
+import 'home_screen.dart';
 
 /// MainShell is the root layout after the app launches.
 /// It holds the bottom NavigationBar and switches between the 4 main tabs.
-/// It is a StatefulWidget because it needs to remember which tab is currently selected.
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
 
@@ -15,34 +15,32 @@ class _MainShellState extends State<MainShell> {
   // Tracks the active tab index (0 = Home, 1 = Learn, 2 = Practice, 3 = Profile)
   int _currentIndex = 0;
 
-  // Placeholder widgets for each tab.
-  // We will replace these one by one as we build each real screen.
-  final List<Widget> _screens = const [
-    Center(child: Text('Home Screen', style: TextStyle(fontSize: 20))),
-    Center(child: Text('Learning Modules', style: TextStyle(fontSize: 20))),
-    Center(child: Text('Practice Quiz', style: TextStyle(fontSize: 20))),
-    Center(child: Text('My Progress', style: TextStyle(fontSize: 20))),
-  ];
+  /// Helper method to switch tabs programmatically from child screens.
+  void _switchTab(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // SafeArea ensures content doesn't overlap with the phone's status bar or notch
-      body: SafeArea(
-        child: _screens[_currentIndex],
-      ),
+    // Built inside build() so we can pass the _switchTab callback to HomeScreen
+    final List<Widget> screens = [
+      HomeScreen(onNavigateToLearn: () => _switchTab(1)),
+      const Center(child: Text('Learning Modules', style: TextStyle(fontSize: 20))),
+      const Center(child: Text('Practice Quiz', style: TextStyle(fontSize: 20))),
+      const Center(child: Text('My Progress', style: TextStyle(fontSize: 20))),
+    ];
 
-      // Material 3 bottom navigation bar
+    return Scaffold(
+      body: SafeArea(
+        child: screens[_currentIndex],
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
-        // Triggered whenever the user taps a tab; setState() rebuilds the UI
-        onDestinationSelected: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+        onDestinationSelected: _switchTab,
         backgroundColor: Colors.white,
-        indicatorColor: AppTheme.softPurple, // Pill highlight behind the active icon
+        indicatorColor: AppTheme.softPurple,
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
