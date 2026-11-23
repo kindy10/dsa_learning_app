@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
 import 'ds_visualizer_screen.dart';
+import 'algo_visualizer_screen.dart' ;
 
 /// Simple immutable model representing a single topic card on the Learn screen.
 class _ModuleItem {
@@ -175,7 +176,16 @@ class ModulesScreen extends StatelessWidget {
               );
               return;
             }
-
+            // Open the interactive Bubble Sort visualizer when Sorting is tapped
+            if (cleanTitle == 'Sorting') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const AlgoVisualizerScreen(),
+                ),
+              );
+              return;
+            }
             // Temporary feedback for topics not yet implemented
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
