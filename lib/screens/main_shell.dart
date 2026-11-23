@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
 import 'home_screen.dart';
 import 'modules_screen.dart';
+import 'practice_screen.dart';
 
 /// MainShell is the root layout after the app launches.
 /// It holds the bottom NavigationBar and switches between the 4 main tabs.
@@ -32,7 +33,8 @@ class _MainShellState extends State<MainShell> {
         onNavigateToProfile: ()=> _switchTab(3),
         ),
       const ModulesScreen(),
-      const Center(child: Text('Practice Quiz', style: TextStyle(fontSize: 20))),
+      //const Center(child: Text('Practice Quiz', style: TextStyle(fontSize: 20))),
+      const PracticeScreen(),
       const Center(child: Text('My Progress', style: TextStyle(fontSize: 20))),
     ];
 
