@@ -8,10 +8,13 @@ class HomeScreen extends StatelessWidget {
   /// Callback function passed from MainShell to switch to the "Learn" tab
   /// when the user taps on Data Structures, Algorithms, or Continue Learning.
   final VoidCallback onNavigateToLearn;
+  ///Callback to switch to the "profile" tab (index 3).
+  final VoidCallback onNavigateToProfile;
 
   const HomeScreen({
     super.key,
     required this.onNavigateToLearn,
+    required this.onNavigateToProfile,
   });
 
   @override
@@ -54,13 +57,19 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               // Subtle profile/notification placeholder icon
-              CircleAvatar(
-                radius: 18,
-                backgroundColor: AppTheme.softPurple,
-                child: const Icon(
-                  Icons.person,
-                  color: AppTheme.primaryPurple,
-                  size: 20,
+              // Clickable profile avatar that redirects to the Profile tab
+              InkWell(
+                onTap: onNavigateToProfile,
+                // CircleBorder ensures the tap ripple stays neatly circular
+                customBorder: const CircleBorder(),
+                child: const CircleAvatar(
+                  radius: 18,
+                  backgroundColor: AppTheme.softPurple,
+                  child: Icon(
+                    Icons.person,
+                    color: AppTheme.primaryPurple,
+                    size: 20,
+                  ),
                 ),
               ),
             ],

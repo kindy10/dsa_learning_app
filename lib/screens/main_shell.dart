@@ -26,7 +26,10 @@ class _MainShellState extends State<MainShell> {
   Widget build(BuildContext context) {
     // Built inside build() so we can pass the _switchTab callback to HomeScreen
     final List<Widget> screens = [
-      HomeScreen(onNavigateToLearn: () => _switchTab(1)),
+      HomeScreen(
+        onNavigateToLearn: () => _switchTab(1),
+        onNavigateToProfile: ()=> _switchTab(3),
+        ),
       const Center(child: Text('Learning Modules', style: TextStyle(fontSize: 20))),
       const Center(child: Text('Practice Quiz', style: TextStyle(fontSize: 20))),
       const Center(child: Text('My Progress', style: TextStyle(fontSize: 20))),
