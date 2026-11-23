@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
+import 'ds_visualizer_screen.dart';
 
 /// Simple immutable data class representing a single learning topic card.
 /// Defining a small model keeps our UI code clean and avoids repeating card layouts.
@@ -182,10 +183,19 @@ class ModulesScreen extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        // Temporary feedback until we build Screen 3 & Screen 4
+        if (item.title == 'Linked List') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const DsVisualizerScreen(),
+            ),
+          );
+          return;
+        }
+        // Temporary feedback for topics not yet built
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${item.title} selected!'),
+            content: Text('${item.title} coming soon!'),
             duration: const Duration(seconds: 1),
           ),
         );
